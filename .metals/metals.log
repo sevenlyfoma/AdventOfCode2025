@@ -1,0 +1,4 @@
+2025.12.01 12:44:18 INFO  Started: Metals version 1.6.4 in folders 'C:\Users\Max\Documents\Programming\PostUni\AdventOfCode2025' for client Visual Studio Code 1.106.3.
+2025.12.01 12:44:20 WARN  Using H2 2.4.240 which is newer than the version Flyway has been verified with. The latest verified version of H2 is 2.3.232.
+2025.12.01 12:44:20 INFO  no build target found for C:\Users\Max\Documents\Programming\PostUni\AdventOfCode2025\aoc-day-1\src\test\scala\MySuite.scala. Using presentation compiler with project's scala-library version: 3.3.6
+2025.12.01 12:44:22 INFO  no build target found for C:\Users\Max\Documents\Programming\PostUni\AdventOfCode2025\aoc-day-1\src\test\scala\MySuite.scala. Using presentation compiler with project's scala-library version: 3.3.6
