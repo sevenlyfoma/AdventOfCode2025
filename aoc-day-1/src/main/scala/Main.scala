@@ -3,6 +3,9 @@ import scala.math
 
 
 @main def main(): Unit =
+  star_one()
+
+def star_one(): Unit = 
   val lines = Source.fromFile("src/main/resources/input.txt").getLines();
   // val lines = Source.fromFile("src/main/resources/test1.txt").getLines();
 
@@ -28,7 +31,6 @@ import scala.math
 
 
   println(zeroCount)
-
  
 
 
