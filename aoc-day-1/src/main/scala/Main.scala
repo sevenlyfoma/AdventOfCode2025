@@ -3,7 +3,7 @@ import scala.math
 
 
 @main def main(): Unit =
-  // star_one()
+  star_one()
   star_two()
 
 def star_two(): Unit = 
