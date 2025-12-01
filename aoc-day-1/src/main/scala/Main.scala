@@ -3,8 +3,8 @@ import scala.math
 
 
 @main def main(): Unit =
-  // val lines = Source.fromFile("src/main/resources/input.txt").getLines();
-  val lines = Source.fromFile("src/main/resources/test1.txt").getLines();
+  val lines = Source.fromFile("src/main/resources/input.txt").getLines();
+  // val lines = Source.fromFile("src/main/resources/test1.txt").getLines();
 
   var position = 50;
   var zeroCount = 0;
