@@ -1,29 +1,33 @@
 import scala.io.Source
+import scala.math
 
 
 @main def main(): Unit =
   // val lines = Source.fromFile("src/main/resources/input.txt").getLines();
   val lines = Source.fromFile("src/main/resources/test1.txt").getLines();
 
-  val position = 50;
-  val zeroCount = 0;
+  var position = 50;
+  var zeroCount = 0;
 
 
   for line <- lines do
     //Get left or right
-    val lr = line.charAt(0);
+    var lr = line.charAt(0);
     //Assume nice input
-    val num = (line.substring(1)).toInt
+    var num = (line.substring(1)).toInt
 
 
     if (lr == 'L')
-      ()
+      //need to add 100 first so that wrap around works
+      position = ((100 + position) - num) % 100
     else 
-      ()
+      position = (position + num) % 100
 
-    println(position)
-    println(zeroCount)
-    println()
+    if (position == 0)
+      zeroCount += 1;
+
+
+  println(zeroCount)
 
  
 
