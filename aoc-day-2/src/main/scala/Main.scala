@@ -4,13 +4,92 @@ import scala.collection.mutable.ArrayBuffer
 
 @main def main(): Unit =
   star_one()
+  // println(findRepeatsInPairs(("95", "115")))
+  // println(findRepeatsInPairsWithChunkSize(("998", "1012"), 1))
+  star_two()
+
+
+def star_two(): Unit = 
+  // var ranges = loadValues("test.txt")
+  var ranges = loadValues("input.txt")
+
+  var totalSum: Long = 0;
+  for (x <- ranges) do
+    var doubles = findRepeatsInPairs(x);
+    println(doubles)
+    for (y <- doubles) do
+      totalSum = totalSum + y
+
+  println(totalSum)
+
+
+def findRepeatsInPairs(pair: (String, String)): ArrayBuffer[Long] =
+  var values = ArrayBuffer[Long]()
+  
+  var smaller = pair._1;
+  var larger = pair._2;
+
+  var test_length = 1;
+
+  while (test_length <= larger.length()/2) do
+    values = values.appendAll(findRepeatsInPairsWithChunkSize(pair, test_length))
+
+    test_length += 1;
+
+  values = values.distinct;
+
+
+  values
+
+def findRepeatsInPairsWithChunkSize(pair: (String, String), chunkSize: Int): ArrayBuffer[Long] =
+  var values = ArrayBuffer[Long]()
+
+  var minValueOfChunk = "1"
+  var maxValueOfChunk = "9"
+  var c = chunkSize - 1;
+  for (x <- Range.inclusive(1,chunkSize-1)) do
+    minValueOfChunk = minValueOfChunk + "0"
+    maxValueOfChunk = maxValueOfChunk + "9"
+
+  var smaller = pair._1;
+  var larger = pair._2;
+
+  var chunk_larger = larger.substring(0, chunkSize);
+
+  while (smaller.length() < larger.length()) do 
+    smaller = "0" + smaller
+    chunk_larger = chunk_larger + "0"
+
+  var chunk_smaller = smaller.substring(0, chunkSize);
+  
+  
+  
+  if (chunk_smaller.toInt < minValueOfChunk.toInt) then
+    chunk_smaller = minValueOfChunk
+  
+  if (chunk_larger.toInt > maxValueOfChunk.toInt) then
+    chunk_larger = maxValueOfChunk
+
+  for (x <- Range.inclusive(chunk_smaller.toInt, chunk_larger.toInt)) do
+    var concat_target = x.toString() + x.toString();
+    while concat_target.length() <= larger.length() do
+      var v = concat_target.toLong 
+      if ( v >= smaller.toLong && v <= larger.toLong) then
+        values.addOne(v)
+      concat_target = concat_target + x.toString();
+
+
+
+  values
+
+
 
 def star_one(): Unit = 
   // var ranges = loadValues("test.txt")
   var ranges = loadValues("input.txt")
   var totalSum: Long = 0;
   for (x <- ranges) do
-    var doubles = findRepeatsInPairs(x);
+    var doubles = findDoublesInPairs(x);
     for (y <- doubles) do
       totalSum = totalSum + y
 
@@ -32,7 +111,7 @@ def loadValues(filename: String): ArrayBuffer[(String, String)] =
   values
 
 //Need longs cos the input numbers are big
-def findRepeatsInPairs(pair: (String, String)): ArrayBuffer[Long] =
+def findDoublesInPairs(pair: (String, String)): ArrayBuffer[Long] =
   var values = ArrayBuffer[Long]()
 
   var smaller = pair._1;
