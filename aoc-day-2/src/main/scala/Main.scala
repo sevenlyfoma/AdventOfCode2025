@@ -3,7 +3,7 @@ import scala.math
 import scala.collection.mutable.ArrayBuffer
 
 @main def main(): Unit =
-  star_one()
+  // star_one()
   // println(findRepeatsInPairs(("95", "115")))
   // println(findRepeatsInPairsWithChunkSize(("998", "1012"), 1))
   star_two()
