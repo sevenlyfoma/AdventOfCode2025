@@ -55,12 +55,14 @@ def findHighJoltageRecursive(voltageList: Array[Long], digits: Int): Array[Long]
     if (v > highest){
       highest = v;
       highest_index = x;
-      if (digits == 1) then
-        
-        highest_digits = Array(highest)
-      else
-        highest_digits = Array(highest).concat(findHighJoltageRecursive(voltageList.slice(highest_index+1, voltageList.length), digits-1))
+      
     }
+  
+  if (digits == 1) then
+        
+    highest_digits = Array(highest)
+  else
+    highest_digits = Array(highest).concat(findHighJoltageRecursive(voltageList.slice(highest_index+1, voltageList.length), digits-1))
 
   highest_digits
 
