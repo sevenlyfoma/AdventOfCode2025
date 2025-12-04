@@ -6,9 +6,28 @@ import scala.collection.mutable.ArrayBuffer
 //Pause at 9:22
 //Restart at 9:40
 //Star 1 finished at 9:49
+//Star 2 finished at 9:57
 
 @main def main(): Unit =
   star_one()
+  star_two()
+
+
+def star_two(): Unit = 
+  // var values = loadValues("test.txt")
+  var values = loadValues("input.txt")
+  var previous_count = -1;
+  var count = 0;
+  while (count != previous_count)
+    var marked = markForkliftable(values);
+    var results = count_and_remove(marked)
+    previous_count = count;
+    count += results._1
+    values = results._2
+
+  // printGrid(values)
+  println(count)
+
   
 
 def star_one(): Unit =
@@ -21,6 +40,18 @@ def star_one(): Unit =
   var count = count_xs(marked);
 
   println(count)
+
+def count_and_remove(input: ArrayBuffer[ArrayBuffer[String]]): (Int, ArrayBuffer[ArrayBuffer[String]]) =
+  var count = 0;
+  for (y <- 0 until input.length) do
+    var row = input(y);
+    for (x <- 0 until row.length) do 
+        if (row(x).equals("x")) then
+          count += 1;
+          row(x) = "."
+        
+
+  (count, input)
 
 
 def count_xs(input: ArrayBuffer[ArrayBuffer[String]]): Int =
