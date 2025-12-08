@@ -1,5 +1,14 @@
 @main def hello(): Unit =
-  println("Hello world!")
-  println(msg)
+  var values = loadValues("test.txt")
 
-def msg = "I was compiled by Scala 3. :)"
+  println(values)
+
+
+
+def loadValues(filename: String): ArrayBuffer[(Int, Int, Int)] = 
+  var values = ArrayBuffer[(Int, Int, Int)]()
+  var lines =  Source.fromResource(filename).getLines()
+
+
+  values
+
