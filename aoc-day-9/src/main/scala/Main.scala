@@ -39,8 +39,8 @@ def justCalculateItAll(inputs: ArrayBuffer[(Long, Long)]): Long =
   res
 
 def star_two(): Unit =
-    var values = loadValues("test.txt")
-    // var values = loadValues("input.txt")
+    // var values = loadValues("test.txt")
+    var values = loadValues("input.txt")
     // var values = loadValues("test2.txt")
   
     var outsideLines = getOutSideLines(values)
