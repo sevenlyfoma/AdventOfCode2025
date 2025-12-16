@@ -21,17 +21,22 @@ import scala.util.boundary, boundary.break
 
 
 def star_two(): Unit = 
-  // var machines = loadValues("input.txt")
-  var machines = loadValues("test.txt")
+  var machines = loadValues("input.txt")
+  // var machines = loadValues("test.txt")
 
   // println(find_joltages_setup(machines(0)));
   // println(find_joltages_setup(machines(1)));
   // println(find_joltages_setup(machines(2)));
 
   var sum = 0;
+  var count = 0;
 
   for (m <- machines) do
-    sum += find_joltages_setup(m)
+    var x =find_joltages_setup(m)
+    sum += x
+    // println(x)
+    count += 1;
+    println(count)
 
   println(sum)
   
@@ -39,7 +44,68 @@ def star_two(): Unit =
 def find_joltages_setup(m: Machine): Int =
   var powerSet = getPowerSet(m.buttons.length).to(ArrayBuffer);
 
-  find_jolatages_recursive(m, powerSet, 1, 0);
+  find_joltages_tail_recursive_start(m, powerSet)
+  // find_jolatages_recursive(m, powerSet, 1, 0)
+
+def find_joltages_tail_recursive_start(m: Machine, powerSet: ArrayBuffer[Set[Int]]): Int = 
+  // println(m.joltages)
+  if (m.joltages.map(x=> (x <= 0) ).reduce((x, y) => x && y) == false) then
+    m.changeLightsToJoltageOdds();
+    var singleSeq = findShortestSequenceAsSeq(m, powerSet.iterator)// * multiplicationValue
+
+    
+
+    var m2 = Machine(m.lights.clone(), m.buttons.clone(), m.joltages.clone());
+
+    m2.changeLightsToJoltageOdds();
+
+    var secondSingleSeq = findSecondShortestSequenceAsSeq(m2, powerSet.iterator)
+
+    m.reduceJoltagesByButtons(singleSeq._2);
+    m.halfJoltages();
+
+    m2.reduceJoltagesByButtons(secondSingleSeq._2);
+    m2.halfJoltages();
+
+    var t1 = find_jolatages_tail_recursive(m, powerSet, 2, singleSeq._1 )
+
+    var t2 = find_jolatages_tail_recursive(m2, powerSet.clone(), 2, secondSingleSeq._1)
+
+
+    // println(t1.toString() + " " + t2.toString())
+
+    if (t1<t2) then
+      t1
+    else
+      t2
+  else
+    0
+
+def find_jolatages_tail_recursive(m: Machine, powerSet: ArrayBuffer[Set[Int]], multiplicationValue: Int, runningTotal: Int): Int = 
+  // println(m.joltages)
+  if (m.joltages.map(x=> (x <= 0)).reduce((x, y) => x && y) == false) then
+    m.changeLightsToJoltageOdds();
+    // println(m.lights)
+
+    var singleSeq = findShortestSequenceAsSeq(m, powerSet.iterator) 
+
+    var seqSize = singleSeq._1 * multiplicationValue
+    var seq = singleSeq._2
+
+  
+
+    m.reduceJoltagesByButtons(seq);
+    // println(m.joltages)
+    m.halfJoltages();
+
+    // println(m.lights)
+
+    // println(singleSeq)
+
+    
+    find_jolatages_tail_recursive(m, powerSet, multiplicationValue*2, runningTotal+seqSize)
+  else
+    runningTotal
 
 
 def find_jolatages_recursive(m: Machine, powerSet: ArrayBuffer[Set[Int]], multiplicationValue: Int, runningTotal: Int): Int = 
